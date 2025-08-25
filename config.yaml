@@ -1,0 +1,45 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: StargateV2 Indexer
+#Global contract definitions that must contain all definitions except
+#addresses. Now you can share a single handler/abi/event definitions
+#for contracts across multiple chains
+contracts:
+  - name: StargatePoolUSDC
+    abi_file_path: ./abis/StargatePoolUSDCABI.json
+    handler: ./src/event-handlers/Pool.ts
+    events:
+      - event: OFTSent
+  
+  - name: StargatePoolNative
+    abi_file_path: ./abis/StargatePoolNativeABI.json
+    handler: ./src/event-handlers/Pool.ts
+    events:
+      - event: OFTSent
+
+  - name: StargatePoolUSDT
+    abi_file_path: ./abis/StargatePoolMigratableABI.json
+    handler: ./src/event-handlers/Pool.ts
+    events:
+      - event: OFTSent
+
+networks:
+  - id: 1
+    start_block: 45336336
+    contracts:
+      - name: StargatePoolUSDC
+        address: 0xc026395860Db2d07ee33e05fE50ed7bD583189C7
+      
+      - name: StargatePoolUSDT
+        address: 0x933597a323Eb81cAe705C5bC29985172fd5A3973
+      
+      - name: StargatePoolNative
+        address: 0x77b2043768d28E9C9aB44E1aBfC95944bcE57931
+  
+# Unordered multichain mode allows you to index events from multiple chains
+# in realtime but doesn't guarentee ordering between chains
+# https://docs.envio.dev/docs/HyperIndex/multichain-indexing#unordered-multichain-mode
+unordered_multichain_mode: true
+# Preload optimisation makes your indexer much faster.
+# But be aware that your handlers will run twice,
+# so make sure to use Effect API for external calls.
+preload_handlers: true

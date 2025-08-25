@@ -1,0 +1,9 @@
+type BridgeTransfer @entity {
+  id: ID!
+  sourceNetworkId: Int!
+  destinationNetworkId: Int!
+  sourceAsset: String!
+  destinationAsset: String!
+  amountSent: BigInt!
+  amountReceived: BigInt!
+}
