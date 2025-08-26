@@ -13,6 +13,7 @@ const handleOFTSent = async (asset: string, args: OFTSentArgs) => {
 
   let entity: BridgeTransfer = {
     id: `${event.chainId}-${event.block.number}-${event.logIndex}`,
+    txHash: `${event.transaction.hash}`,
     sourceNetworkId: event.chainId,
     destinationAsset: asset,
     sourceAsset: asset,
