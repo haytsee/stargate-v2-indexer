@@ -1,6 +1,7 @@
 type BridgeTransfer @entity {
   id: ID!
   txHash: String!
+  timestamp: Int!
   sourceNetworkId: Int!
   destinationNetworkId: Int!
   sourceAsset: String!
